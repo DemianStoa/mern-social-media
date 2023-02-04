@@ -1,4 +1,6 @@
+.vscode/*
 # Logs
+.vscode
 logs
 *.log
 npm-debug.log*
@@ -7,8 +9,12 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+.vscode
+
 node_modules
 dist
+env
+.env-*
 dist-ssr
 *.local
 
@@ -21,4 +27,9 @@ dist-ssr
 *.ntvs*
 *.njsproj
 *.sln
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
 *.sw?

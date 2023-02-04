@@ -9,6 +9,7 @@ lerna-debug.log*
 
 node_modules
 dist
+.env
 dist-ssr
 *.local
 
@@ -18,7 +19,13 @@ dist-ssr
 .idea
 .DS_Store
 *.suo
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+.env-*
