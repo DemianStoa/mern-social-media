@@ -54,7 +54,7 @@ const Form = () => {
     const isLogin = pageType === "login"
     const isRegister = pageType === "register"
 
-
+   
 
     const register = async (values, onSubmitProps) => {
         // this allows us to send form info with image
@@ -64,7 +64,7 @@ const Form = () => {
         }
         formData.append('picturePath', values.picture.name)
         const savedUserResponse = await fetch(
-            'http://localhost:3001/auth/register',
+            `${import.meta.env.VITE_SERVER_URL_BASE}/auth/register`,
             {
                 method: "Post",
                 body: formData,
@@ -84,7 +84,7 @@ const Form = () => {
 
     const login = async (values, onSubmitProps) => {
         const loggedInResponse = await fetch(
-            "http://localhost:3001/auth/login",
+            `${import.meta.env.VITE_SERVER_URL_BASE}/auth/login`,
             {
                 method: "Post",
                 headers: { "Content-Type": "application/json"},
