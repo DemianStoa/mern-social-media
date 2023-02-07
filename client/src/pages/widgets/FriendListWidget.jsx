@@ -13,7 +13,7 @@ const FriendListWidget = ({ userId }) => {
 
   const getFriends = async () => {
     const response = await fetch(
-      `${import.meta.env.SERVER_URL_BASE}/users/${userId}/friends`,
+      `${import.meta.env.VITE_SERVER_URL_BASE}/users/${userId}/friends`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
@@ -36,6 +36,7 @@ const FriendListWidget = ({ userId }) => {
         sx={{ mb: "1.5rem" }}
       >
         Friend List
+
       </Typography>
       <Box display="flex" flexDirection="column" gap="1.5rem">
         {friends?.map((friend) => (

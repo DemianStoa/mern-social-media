@@ -14,12 +14,12 @@ const PostsWidget = ({ userId, isProfile = false }) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await response.json();
-    dispatch(setPosts({ posts: data.reverse() }));
+    dispatch(setPosts({ posts: data }));
   };
 
   const getUserPosts = async () => {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL_BASE}/posts/${userId}/posts`,
+      `${import.meta.env.VITE_SERVER_URL_BASE}/posts/${userId}`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },

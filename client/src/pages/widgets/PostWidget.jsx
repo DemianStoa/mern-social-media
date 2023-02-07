@@ -4,13 +4,16 @@ import {
     FavoriteOutlined,
     ShareOutlined,
   } from "@mui/icons-material";
-  import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
+  import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+  import { Box, Divider, IconButton, Typography, Button, useTheme } from "@mui/material";
   import FlexBetween from "../../components/FlexBetween";
   import Friend from "../../components/Friend";
   import WidgetWrapper from "../../components/WidgetWrapper";
+  import CommentWidget from "./CommentWidget";
   import { useState } from "react";
   import { useDispatch, useSelector } from "react-redux";
-  import { setPost } from "../../state";
+  import { setPosts, setPost } from "../../state";
+  import toast, { Toaster } from "react-hot-toast"
   
   const PostWidget = ({
     postId,
@@ -29,6 +32,7 @@ import {
     const loggedInUserId = useSelector((state) => state.user._id);
     const isLiked = Boolean(likes[loggedInUserId]);
     const likeCount = Object.keys(likes).length;
+    const isOwner = loggedInUserId === postUserId;
   
     const { palette } = useTheme();
     const main = palette.neutral.main;
@@ -46,10 +50,40 @@ import {
       const updatedPost = await response.json();
       dispatch(setPost({ post: updatedPost }));
     };
+
+    const deletePost = async () => {
+      const response = await fetch(`${import.meta.env.VITE_SERVER_URL_BASE}/posts/${postId}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const updatedPosts = await response.json();
+      dispatch(setPosts({ posts: updatedPosts }));
+
+      toast.success('Successfully deleted!');
+    };
   
     return (
-      <WidgetWrapper m="2rem 0">
+      <WidgetWrapper m="2rem 0" sx={{position: "relative"}}> 
+       {isOwner ? 
+                  <IconButton 
+                  sx={{position: "absolute",
+                  left: "88%",
+                  top: "2rem"
+
+                }}
+                  aria-label="delete"
+                   size="large"
+
+                  onClick={() => deletePost()}
+                  >
+                  <DeleteOutlinedIcon  />
+                </IconButton>
+                :
+                ""  
+      }       
         <Friend
+          postId={postId}
           friendId={postUserId}
           name={name}
           subtitle={location}
@@ -94,6 +128,7 @@ import {
         </FlexBetween>
         {isComments && (
           <Box mt="0.5rem">
+            <CommentWidget postId={postId} />
             {comments.map((comment, i) => (
               <Box key={`${name}-${i}`}>
                 <Divider />

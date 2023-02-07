@@ -4,7 +4,9 @@ const UserImage = ({ image, size="60px" }) => {
   return (
     <Box width={size} height={size}>
         <img 
-            style={{ objectFit: "cover", borderRadius: "50%"}}
+            style={{ objectFit: "cover", 
+            backgroundColor: "white",
+            borderRadius: "50%", margin: "0"}}
             width={size}
             height={size}
             alt="user"

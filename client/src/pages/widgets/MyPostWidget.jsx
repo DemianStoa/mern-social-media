@@ -24,6 +24,7 @@ import WidgetWrapper from "../../components/WidgetWrapper";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "../../state";
+import { toast } from "react-hot-toast"
 
 const MyPostWidget = ({ picturePath }) => {
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ const MyPostWidget = ({ picturePath }) => {
       body: formData,
     });
     const posts = await response.json();
+    toast.success('Successfully created!');
     dispatch(setPosts({ posts }));
     setImage(null);
     setPost("");

@@ -19,8 +19,8 @@ export const createPost = async (req, res) => {
         })
         await newPost.save()
 
-        const post = await Post.findById()
-        res.status(201).json(post)
+        const posts = await Post.find()
+        res.status(201).json(posts)
     } catch (err) {
         res.status(409).json({ message: err.message })
 
@@ -52,7 +52,7 @@ export  const likePost = async (req, res) => {
     try {
         const { id } = req.params
         const { userId } = req.body
-        const post = await Post.find({ id })
+        const post = await Post.findById( id )
         const isliked = post.likes.get(userId)
 
         if (isliked) {
@@ -70,5 +70,40 @@ export  const likePost = async (req, res) => {
         res.status(200).json(updatedPost)
     } catch (err) {
         res.status(404).json({ message: err.message })
+    }
+}
+
+export  const commentPost = async (req, res) => {
+    try {
+        const { id } = req.params
+        const { comment } = req.body
+        const post = await Post.findById( id )
+
+
+        post.comments.unshift(comment)
+        
+
+        const updatedPost = await Post.findByIdAndUpdate(
+            id, 
+            { comments: post.comments },
+            { new: true }
+            )
+            
+        res.status(200).json(updatedPost)
+    } catch (err) {
+        res.status(404).json({ message: err.message })
+    }
+}
+
+/* DELETE */
+export  const deletePost = async (req, res) => {
+    try {
+        const { id } = req.params
+        const post = await Post.findByIdAndDelete( id )
+
+        const posts = await Post.find()
+        res.status(200).json(posts)
+    } catch (err) {
+        res.status(405).json({ message: err.message })
     }
 }
