@@ -22,13 +22,13 @@ const registerSchema = yup.object().shape({
     email: yup.string().email("invalid email").required("required"),
     password: yup.string().required("required")
     .min(
-        8,
+        6,
         'password must contain 8 or more characters with at least one of each: uppercase, lowercase, number and special'
       )
-      .matches(/^[a-z]+$/, 'at least One lowercase character')
-      .matches(/^[A-Z]+$/, 'at least One uppercase character')
-      .matches(/^\d+$/, 'at least One number')
-      .matches(/[@$!%*#?&]+/, "One special character"),
+      .matches(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/, 'at least One lowercase, One uppercase, One digit, and One special'),
+    //   .matches(/^[A-Z]+$/, 'at least One uppercase character')
+    //   .matches(/^\d+$/, 'at least One number')
+    //   .matches(/[@$!%*#?&]+/, "at least One special character"),
     picture: yup.string().required("required"),
     location: yup.string().required("required"),
     occupation: yup.string().required("required"),
