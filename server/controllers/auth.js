@@ -18,7 +18,7 @@ export const register = async (req, res) => {
         } = req.body
 
         const user = await User.findOne({ email: email })
-        if (user) return res.status(404).json({ error: 'The email has already been registered '})
+        if (user) return res.status(405).json({ error: 'The email has already been registered '})
 
         const salt = await bcrypt.genSalt()
         const passwordHash = await bcrypt.hash(password, salt)
