@@ -10,7 +10,7 @@ import FlexBetween from "../../components/FlexBetween"
 import WidgetWrapper from "../../components/WidgetWrapper"
 import { useSelector } from "react-redux"
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 
 const UserWidget =({ userId, picturePath }) => {
     const [user, setUser] = useState(null)
@@ -57,7 +57,7 @@ const UserWidget =({ userId, picturePath }) => {
             onClick={() => navigate(`/profile/${userId}`)}
         >
             <FlexBetween gap="1rem">
-            <UserImage image={picturePath} />
+             <UserImage userId={userId} image={picturePath} />
             <Box>
                 <Typography
                 variant="h4"

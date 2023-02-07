@@ -1,8 +1,10 @@
 import { Box } from '@mui/material'
+import { Link } from 'react-router-dom'
 
-const UserImage = ({ image, size="60px" }) => {
+const UserImage = ({ userId, image, size="60px" }) => {
   return (
     <Box width={size} height={size}>
+      <Link to={`/profile/${userId}`}>
         <img 
             style={{ objectFit: "cover", 
             backgroundColor: "white",
@@ -12,6 +14,7 @@ const UserImage = ({ image, size="60px" }) => {
             alt="user"
             src={ `${import.meta.env.VITE_SERVER_URL_BASE}/assets/${image}`}
         />
+      </Link>
     </Box>
   )
 }
